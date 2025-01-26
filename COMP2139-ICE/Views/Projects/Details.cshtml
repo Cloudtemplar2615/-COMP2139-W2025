@@ -1,0 +1,9 @@
+@model COMP2139_ICE.Models.Project
+
+<h1>Project Details</h1>
+<p><strong>ID:</strong> @Model.Id</p>
+<p><strong>Name:</strong> @Model.Name</p>
+<p><strong>Description:</strong> @Model.Description</p>
+<p><strong>Start Date:</strong> @Model.StartDate.ToShortDateString()</p>
+<p><strong>End Date:</strong> @Model.EndDate.ToShortDateString()</p>
+<a asp-controller="Projects" asp-action="Index">Back to List</a>
