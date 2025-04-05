@@ -25,6 +25,7 @@ E:\lab4\2139.1\obj\Debug\net9.0\COMP2139-ICE.csproj.CoreCompileInputs.cache
 E:\lab4\2139.1\obj\Debug\net9.0\COMP2139-ICE.MvcApplicationPartsAssemblyInfo.cache
 E:\lab4\2139.1\obj\Debug\net9.0\COMP2139-ICE.RazorAssemblyInfo.cache
 E:\lab4\2139.1\obj\Debug\net9.0\COMP2139-ICE.RazorAssemblyInfo.cs
+E:\lab4\2139.1\obj\Debug\net9.0\COMP2139-ICE.sourcelink.json
 E:\lab4\2139.1\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 E:\lab4\2139.1\obj\Debug\net9.0\scopedcss\bundle\COMP2139-ICE.styles.css
 E:\lab4\2139.1\obj\Debug\net9.0\scopedcss\projectbundle\COMP2139-ICE.bundle.scp.css

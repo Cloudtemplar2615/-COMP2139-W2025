@@ -1,33 +1,63 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using COMP2139_ICE.Data;
 using COMP2139_ICE.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace COMP2139_ICE.Controllers;
-
-public class HomeController : Controller
+namespace COMP2139_ICE.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public class HomeController : Controller
     {
-        _logger = logger;
-    }
-
-    public IActionResult Index()
-    {
-        return View();
-    }
-    
-    public IActionResult About()
-    {
-        return View();
-    }
-
-    
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        private readonly ApplicationDbContext _context;
+        
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+        
+        // GET: / or /Home/Index – This is your landing page.
+        [HttpGet("")]
+        [HttpGet("index")]
+        public IActionResult Index()
+        {
+            return View();
+        }
+        
+        // General search action for both Projects and ProjectTasks
+        [HttpGet("search")]
+        public IActionResult Search(string searchTerm, string category)
+        {
+            ViewData["SearchTerm"] = searchTerm;
+            if (category == "ProjectTask")
+            {
+                var tasks = string.IsNullOrEmpty(searchTerm)
+                    ? _context.ProjectTasks.Include(t => t.Project).ToList()
+                    : _context.ProjectTasks.Include(t => t.Project)
+                        .Where(t => t.Title.Contains(searchTerm) || t.Description.Contains(searchTerm))
+                        .ToList();
+                return View("SearchResults", tasks);
+            }
+            else
+            {
+                var projects = string.IsNullOrEmpty(searchTerm)
+                    ? _context.Projects.ToList()
+                    : _context.Projects.Where(p => p.Name.Contains(searchTerm) || p.Description.Contains(searchTerm))
+                        .ToList();
+                return View("SearchResults", projects);
+            }
+        }
+        
+        // 404 NotFound page action
+        [HttpGet("notfound")]
+        public IActionResult NotFoundPage()
+        {
+            return View("NotFound");
+        }
+        
+        // (Optional) Error page action
+        [HttpGet("error")]
+        public IActionResult Error()
+        {
+            return View();
+        }
     }
 }

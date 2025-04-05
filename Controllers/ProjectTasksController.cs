@@ -4,50 +4,55 @@ using COMP2139_ICE.Data;
 using COMP2139_ICE.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-
 namespace COMP2139_ICE.Controllers
 {
+    [Route("projecttasks")]
     public class ProjectTasksController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        
         public ProjectTasksController(ApplicationDbContext context)
         {
             _context = context;
         }
-
-        // GET: ProjectTasks
-        public async Task<IActionResult> Index()
+        
+        // GET: /projecttasks or /projecttasks/index?projectId=...
+        [HttpGet("")]
+        [HttpGet("index")]
+        public async Task<IActionResult> Index(int? projectId)
         {
-            var tasks = _context.ProjectTasks.Include(t => t.Project);
-            return View(await tasks.ToListAsync());
+            var tasksQuery = _context.ProjectTasks.Include(t => t.Project).AsQueryable();
+            if (projectId.HasValue)
+            {
+                tasksQuery = tasksQuery.Where(t => t.ProjectId == projectId.Value);
+            }
+            return View(await tasksQuery.ToListAsync());
         }
-
-        // GET: ProjectTasks/Details/5
-        public async Task<IActionResult> Details(int? id)
+        
+        // GET: /projecttasks/search?searchTerm=...
+        [HttpGet("search")]
+        public async Task<IActionResult> Search(string searchTerm)
         {
-            if (id == null) return NotFound();
-
-            var task = await _context.ProjectTasks
-                .Include(t => t.Project)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (task == null) return NotFound();
-
-            return View(task);
+            ViewData["SearchTerm"] = searchTerm;
+            var tasks = string.IsNullOrEmpty(searchTerm)
+                ? await _context.ProjectTasks.Include(t => t.Project).ToListAsync()
+                : await _context.ProjectTasks.Include(t => t.Project)
+                    .Where(t => t.Title.Contains(searchTerm) || t.Description.Contains(searchTerm))
+                    .ToListAsync();
+            ViewData["SearchPerformed"] = true;
+            return View("Index", tasks);
         }
-
-        // GET: ProjectTasks/Create
-        [HttpGet("ProjectTasks/Create")]
-        public IActionResult Create()
+        
+        // GET: /projecttasks/create
+        [HttpGet("create")]
+        public IActionResult Create(int? projectId)
         {
-            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name");
+            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name", projectId);
             return View();
         }
-
-
-        // POST: ProjectTasks/Create
-        [HttpPost]
+        
+        // POST: /projecttasks/create
+        [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProjectTask task)
         {
@@ -57,35 +62,32 @@ namespace COMP2139_ICE.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
             ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name", task.ProjectId);
             return View(task);
         }
-
-        // GET: ProjectTasks/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        
+        // GET: /projecttasks/edit/5
+        [HttpGet("edit/{id:int}")]
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null) return NotFound();
-
             var task = await _context.ProjectTasks.FindAsync(id);
             if (task == null) return NotFound();
-
             ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name", task.ProjectId);
             return View(task);
         }
-
-        // POST: ProjectTasks/Edit/5
-        [HttpPost]
+        
+        // POST: /projecttasks/edit
+        [HttpPost("edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ProjectTask task)
+        public async Task<IActionResult> Edit(ProjectTask task)
         {
-            if (id != task.Id) return NotFound();
-
+            if (!ProjectTaskExists(task.Id))
+                return NotFound();
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(task);
+                    _context.ProjectTasks.Update(task);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -97,27 +99,32 @@ namespace COMP2139_ICE.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-
             ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name", task.ProjectId);
             return View(task);
         }
-
-        // GET: ProjectTasks/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        
+        // GET: /projecttasks/details/5
+        [HttpGet("details/{id:int}")]
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null) return NotFound();
-
-            var task = await _context.ProjectTasks
-                .Include(t => t.Project)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
+            var task = await _context.ProjectTasks.Include(t => t.Project)
+                         .FirstOrDefaultAsync(m => m.Id == id);
             if (task == null) return NotFound();
-
             return View(task);
         }
-
-        // POST: ProjectTasks/Delete/5
-        [HttpPost, ActionName("Delete")]
+        
+        // GET: /projecttasks/delete/5
+        [HttpGet("delete/{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var task = await _context.ProjectTasks.Include(t => t.Project)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (task == null) return NotFound();
+            return View(task);
+        }
+        
+        // POST: /projecttasks/delete
+        [HttpPost("delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -129,10 +136,12 @@ namespace COMP2139_ICE.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
+        
         private bool ProjectTaskExists(int id)
         {
             return _context.ProjectTasks.Any(e => e.Id == id);
         }
     }
 }
+
+

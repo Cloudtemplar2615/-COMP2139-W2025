@@ -1,0 +1,31 @@
+@model IEnumerable<object>
+
+<h1>Search Results</h1>
+
+@if (!Model.Any())
+{
+    <p>No results found for "@ViewData["SearchTerm"]".</p>
+}
+else
+{
+    <!-- This is a generic display; you might want to differentiate projects vs tasks -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title/Name</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(item.GetType().GetProperty("Id")?.GetValue(item))</td>
+                <td>@(item.GetType().GetProperty("Name")?.GetValue(item) ?? item.GetType().GetProperty("Title")?.GetValue(item))</td>
+                <td>@(item.GetType().GetProperty("Description")?.GetValue(item))</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
