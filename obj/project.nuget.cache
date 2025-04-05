@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RVYXbqsisFU=",
+  "dgSpecHash": "4J/xaRSgLmw=",
   "success": true,
-  "projectFilePath": "E:\\lab4\\2139.1\\COMP2139-ICE.csproj",
+  "projectFilePath": "E:\\lab7\\2139.1\\COMP2139-ICE.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fredr\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\fredr\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.0\\microsoft.entityframeworkcore.7.0.0.nupkg.sha512",

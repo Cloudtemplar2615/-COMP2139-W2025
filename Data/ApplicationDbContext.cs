@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using COMP2139_ICE.Models;
+using COMP2139_ICE.Areas.ProjectManagement.Models;
 
 namespace COMP2139_ICE.Data
 {

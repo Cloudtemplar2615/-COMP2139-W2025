@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace COMP2139_ICE.Models
+namespace COMP2139_ICE.Areas.ProjectManagement.Models
 {
     public class Project
     {

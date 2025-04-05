@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using COMP2139_ICE.Data;
-using COMP2139_ICE.Models;
+using COMP2139_ICE.Areas.ProjectManagement.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace COMP2139_ICE.Controllers

@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using COMP2139_ICE.Data;
-using COMP2139_ICE.Models;
+using COMP2139_ICE.Areas.ProjectManagement.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace COMP2139_ICE.Controllers
+namespace COMP2139_ICE.Areas.ProjectManagement.Controllers
 {
-    [Route("projecttasks")]
+    [Area("ProjectManagement")]
+    [Route("ProjectManagement/[controller]/[action]")]
     public class ProjectTasksController : Controller
     {
         private readonly ApplicationDbContext _context;
