@@ -1,0 +1,44 @@
+@model COMP2139_ICE.Models.Project
+
+<h1>Project Details</h1>
+<p><strong>ID:</strong> @Model.Id</p>
+<p><strong>Name:</strong> @Model.Name</p>
+<p><strong>Description:</strong> @Model.Description</p>
+<p><strong>Start Date:</strong> @Model.StartDate.ToShortDateString()</p>
+<p><strong>End Date:</strong> @Model.EndDate.ToShortDateString()</p>
+
+<a asp-controller="Projects" asp-action="Index">Back to List</a>
+
+<h3>Tasks</h3>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th>Is Complete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model.ProjectTasks != null && Model.ProjectTasks.Any())
+    {
+        foreach (var task in Model.ProjectTasks)
+        {
+            <tr>
+                <td>@task.Title</td>
+                <td>@task.DueDate.ToShortDateString()</td>
+                <td>@task.IsComplete</td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="3">No tasks for this project.</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<a asp-controller="ProjectTasks" asp-action="Create" asp-route-projectId="@Model.Id">Add Task</a>
+
+
