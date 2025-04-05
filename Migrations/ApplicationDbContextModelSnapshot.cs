@@ -22,7 +22,7 @@ namespace COMP2139ICE.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("COMP2139_ICE.Models.Project", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,12 +44,16 @@ namespace COMP2139ICE.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("COMP2139_ICE.Models.ProjectTask", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.ProjectTask", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,9 +85,9 @@ namespace COMP2139ICE.Migrations
                     b.ToTable("ProjectTasks");
                 });
 
-            modelBuilder.Entity("COMP2139_ICE.Models.ProjectTask", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.ProjectTask", b =>
                 {
-                    b.HasOne("COMP2139_ICE.Models.Project", "Project")
+                    b.HasOne("COMP2139_ICE.Areas.ProjectManagement.Models.Project", "Project")
                         .WithMany("ProjectTasks")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -92,7 +96,7 @@ namespace COMP2139ICE.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("COMP2139_ICE.Models.Project", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.Project", b =>
                 {
                     b.Navigation("ProjectTasks");
                 });

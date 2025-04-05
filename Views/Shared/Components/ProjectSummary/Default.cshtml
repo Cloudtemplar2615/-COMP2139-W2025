@@ -1,0 +1,30 @@
+@model COMP2139_ICE.Areas.ProjectManagement.Models.Project
+
+<h3>Project Summary</h3>
+
+@if (Model.ProjectTasks != null && Model.ProjectTasks.Any())
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Task Title</th>
+            <th>Due Date</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var task in Model.ProjectTasks)
+        {
+            <tr>
+                <td>@task.Title</td>
+                <td>@task.DueDate.ToShortDateString()</td>
+                <td>@(task.IsComplete ? "Completed" : "In Progress")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No tasks found for this project.</p>
+}

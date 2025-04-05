@@ -17,6 +17,8 @@ namespace COMP2139_ICE.Areas.ProjectManagement.Models
 
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
+        public string Status { get; set; }
+
 
         
         public ICollection<ProjectTask> ProjectTasks { get; set; } = new List<ProjectTask>();
