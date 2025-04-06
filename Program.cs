@@ -1,13 +1,25 @@
 using Microsoft.EntityFrameworkCore;
 using COMP2139_ICE.Data;
+using Microsoft.AspNetCore.Identity;
+using COMP2139_ICE.Services;
+using IEmailSender = Microsoft.AspNetCore.Identity.UI.Services.IEmailSender;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register ApplicationDbContext with PostgreSQL
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddRazorPages(); // Required for identity pages
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IEmailSender, SendGridEmailSender>();
+
+
+
 
 var app = builder.Build();
 
@@ -18,9 +30,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(); // Enable static files if missing
+app.UseStaticFiles();
+
 app.UseRouting();
+
+
+app.UseAuthentication(); 
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "areas",
@@ -29,6 +46,8 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages(); 
 
 app.UseStatusCodePages(async context =>
 {

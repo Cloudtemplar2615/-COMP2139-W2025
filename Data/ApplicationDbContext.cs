@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using COMP2139_ICE.Areas.ProjectManagement.Models;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace COMP2139_ICE.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }

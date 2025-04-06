@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using COMP2139_ICE.Data;
 using COMP2139_ICE.Areas.ProjectManagement.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace COMP2139_ICE.Controllers
 {
@@ -15,6 +16,7 @@ namespace COMP2139_ICE.Controllers
         }
         
         // GET: / or /Home/Index – This is your landing page.
+        [AllowAnonymous]
         [HttpGet("")]
         [HttpGet("index")]
         public IActionResult Index()

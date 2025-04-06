@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\lab9\\2139.1\\COMP2139-ICE.csproj": {}
+    "E:\\lab9test\\-COMP2139-W2025-main\\COMP2139-ICE.csproj": {}
   },
   "projects": {
-    "E:\\lab9\\2139.1\\COMP2139-ICE.csproj": {
+    "E:\\lab9test\\-COMP2139-W2025-main\\COMP2139-ICE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\lab9\\2139.1\\COMP2139-ICE.csproj",
+        "projectUniqueName": "E:\\lab9test\\-COMP2139-W2025-main\\COMP2139-ICE.csproj",
         "projectName": "COMP2139-ICE",
-        "projectPath": "E:\\lab9\\2139.1\\COMP2139-ICE.csproj",
+        "projectPath": "E:\\lab9test\\-COMP2139-W2025-main\\COMP2139-ICE.csproj",
         "packagesPath": "C:\\Users\\fredr\\.nuget\\packages\\",
-        "outputPath": "E:\\lab9\\2139.1\\obj\\",
+        "outputPath": "E:\\lab9test\\-COMP2139-W2025-main\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\fredr\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -46,19 +46,35 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[9.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[9.0.0, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.29.3, )"
             }
           },
           "imports": [

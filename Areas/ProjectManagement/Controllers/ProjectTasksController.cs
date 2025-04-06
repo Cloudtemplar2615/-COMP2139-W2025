@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using COMP2139_ICE.Data;
 using COMP2139_ICE.Areas.ProjectManagement.Models;
-
+using Microsoft.AspNetCore.Authorization;
 namespace COMP2139_ICE.Areas.ProjectManagement.Controllers
 {
+    [Authorize]
     [Area("ProjectManagement")]
     [Route("ProjectManagement/[controller]/[action]")]
     public class ProjectTasksController : Controller

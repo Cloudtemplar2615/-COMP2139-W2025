@@ -2,9 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using COMP2139_ICE.Data;
 using COMP2139_ICE.Areas.ProjectManagement.Models;
-
+using Microsoft.AspNetCore.Authorization;
 namespace COMP2139_ICE.Areas.ProjectManagement.Controllers
 {
+    [Authorize]
     [Area("ProjectManagement")]
     [Route("ProjectManagement/[controller]/[action]")]
     public class ProjectsController : Controller
