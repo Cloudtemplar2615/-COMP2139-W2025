@@ -22,7 +22,7 @@ namespace COMP2139ICE.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("COMP2139_ICE.Models.Project", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,32 @@ namespace COMP2139ICE.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("COMP2139_ICE.Models.ProjectTask", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.ProjectComment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CommentId"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectComments");
+                });
+
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.ProjectTask", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +97,8 @@ namespace COMP2139ICE.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -81,9 +107,20 @@ namespace COMP2139ICE.Migrations
                     b.ToTable("ProjectTasks");
                 });
 
-            modelBuilder.Entity("COMP2139_ICE.Models.ProjectTask", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.ProjectComment", b =>
                 {
-                    b.HasOne("COMP2139_ICE.Models.Project", "Project")
+                    b.HasOne("COMP2139_ICE.Areas.ProjectManagement.Models.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.ProjectTask", b =>
+                {
+                    b.HasOne("COMP2139_ICE.Areas.ProjectManagement.Models.Project", "Project")
                         .WithMany("ProjectTasks")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -92,7 +129,7 @@ namespace COMP2139ICE.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("COMP2139_ICE.Models.Project", b =>
+            modelBuilder.Entity("COMP2139_ICE.Areas.ProjectManagement.Models.Project", b =>
                 {
                     b.Navigation("ProjectTasks");
                 });

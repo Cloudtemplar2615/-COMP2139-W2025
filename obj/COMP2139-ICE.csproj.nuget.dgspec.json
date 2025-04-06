@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\lab4\\2139.1\\COMP2139-ICE.csproj": {}
+    "E:\\lab7.1\\2139.1\\COMP2139-ICE.csproj": {}
   },
   "projects": {
-    "E:\\lab4\\2139.1\\COMP2139-ICE.csproj": {
+    "E:\\lab7.1\\2139.1\\COMP2139-ICE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\lab4\\2139.1\\COMP2139-ICE.csproj",
+        "projectUniqueName": "E:\\lab7.1\\2139.1\\COMP2139-ICE.csproj",
         "projectName": "COMP2139-ICE",
-        "projectPath": "E:\\lab4\\2139.1\\COMP2139-ICE.csproj",
+        "projectPath": "E:\\lab7.1\\2139.1\\COMP2139-ICE.csproj",
         "packagesPath": "C:\\Users\\fredr\\.nuget\\packages\\",
-        "outputPath": "E:\\lab4\\2139.1\\obj\\",
+        "outputPath": "E:\\lab7.1\\2139.1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\fredr\\AppData\\Roaming\\NuGet\\NuGet.Config",

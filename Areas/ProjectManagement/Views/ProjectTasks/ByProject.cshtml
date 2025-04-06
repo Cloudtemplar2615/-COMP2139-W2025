@@ -1,0 +1,25 @@
+@model IEnumerable<COMP2139_ICE.Areas.ProjectManagement.Models.ProjectTask>
+
+<h2>Tasks for Project: @ViewBag.ProjectName</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Is Complete</th>
+        <th>Due Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var task in Model)
+    {
+        <tr>
+            <td>@task.Title</td>
+            <td>@task.IsComplete</td>
+            <td>@task.DueDate.ToShortDateString()</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<a asp-area="ProjectManagement" asp-controller="Projects" asp-action="Index">Back to Projects</a>

@@ -1,0 +1,41 @@
+@model COMP2139_ICE.Areas.ProjectManagement.Models.Project
+
+<h1>Project Details</h1>
+
+<p><strong>@Model.Name</strong></p>
+<p>@Model.Description</p>
+<p>@Model.StartDate.ToShortDateString() - @Model.EndDate.ToShortDateString()</p>
+
+<h3>Tasks</h3>
+@if (Model.ProjectTasks != null && Model.ProjectTasks.Any()) {
+    <ul>
+        @foreach (var task in Model.ProjectTasks) {
+            <li>@task.Title - @(task.IsComplete ? "Done" : "Pending")</li>
+        }
+    </ul>
+} else {
+    <p>No tasks linked.</p>
+}
+
+<hr />
+
+<!-- ✅ Comment Section Starts Here -->
+<div id="comments-section">
+    <h3>Project Comments</h3>
+
+    <ul id="comment-list" class="list-group mb-3"></ul>
+
+    <form id="comment-form">
+        <textarea id="comment-content" placeholder="Write a comment..." class="form-control" required></textarea>
+        <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/js/projectComments.js"></script>
+    <script>
+        loadComments(@Model.Id);
+    </script>
+}
+
+

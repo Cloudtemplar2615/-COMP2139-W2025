@@ -1,0 +1,10 @@
+@model COMP2139_ICE.Areas.ProjectManagement.Models.Project
+<h1>Create Project</h1>
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <div><label asp-for="Name"></label><input asp-for="Name" class="form-control" /></div>
+    <div><label asp-for="Description"></label><textarea asp-for="Description" class="form-control"></textarea></div>
+    <div><label asp-for="StartDate"></label><input asp-for="StartDate" type="datetime-local" class="form-control" /></div>
+    <div><label asp-for="EndDate"></label><input asp-for="EndDate" type="datetime-local" class="form-control" /></div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

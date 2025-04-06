@@ -1,0 +1,13 @@
+// File: Views/Shared/Components/ProjectSummary/Default.cshtml
+@model dynamic
+<div class="card mt-3">
+    <div class="card-body">
+        <h5 class="card-title">Project Summary</h5>
+        <p class="card-text">Total Projects: @Model.projectCount</p>
+        <p class="card-text">Total Tasks: @Model.taskCount</p>
+    </div>
+</div>
+
+// File: Areas/ProjectManagement/Views/Projects/Index.cshtml
+// Add this wherever you want the summary box to appear (top or sidebar usually):
+@await Component.InvokeAsync("ProjectSummary")

@@ -1,0 +1,7 @@
+@model COMP2139_ICE.Areas.ProjectManagement.Models.ProjectTask
+<h1>Task Details</h1>
+<p><strong>@Model.Title</strong></p>
+<p>@Model.Description</p>
+<p>Due: @Model.DueDate.ToShortDateString()</p>
+<p>Status: @(Model.IsComplete ? "Complete" : "Incomplete")</p>
+<p>Project: @Model.Project?.Name</p>

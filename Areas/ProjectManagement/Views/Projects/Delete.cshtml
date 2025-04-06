@@ -1,4 +1,4 @@
-@model COMP2139_ICE.Models.Project
+@model COMP2139_ICE.Areas.ProjectManagement.Models.Project
 
 <h1>Delete Project</h1>
 
@@ -9,8 +9,9 @@
     <p>@Model.StartDate.ToShortDateString() - @Model.EndDate.ToShortDateString()</p>
 </div>
 
-<form asp-action="Delete">
+<form asp-action="DeleteConfirmed" method="post">
+    @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Id" />
-    <button type="submit">Delete</button>
-    <a asp-action="Index">Cancel</a>
+    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

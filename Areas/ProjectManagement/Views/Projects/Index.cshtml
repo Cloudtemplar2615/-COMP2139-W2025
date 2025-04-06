@@ -1,0 +1,24 @@
+@model IEnumerable<COMP2139_ICE.Areas.ProjectManagement.Models.Project>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>
+                <a asp-area="ProjectManagement" asp-controller="Projects" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-area="ProjectManagement" asp-controller="Projects" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-area="ProjectManagement" asp-controller="Projects" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-area="ProjectManagement" asp-controller="ProjectTasks" asp-action="ByProject" asp-route-id="@item.Id">View Tasks</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
